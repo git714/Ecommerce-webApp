@@ -1,17 +1,24 @@
 import React from 'react'
 
-
+import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import { useParams } from 'react-router-dom'
 
-
-export const Updatecategory = (props) => {
+export const Updatecategory = () => {
+  let {id}=useParams()
+  const navigate=useNavigate()
   
     const {register,handleSubmit}=useForm();
+
 const onSubmit=(data)=>{
-    console.log(data)
-    axios.post(`http://localhost:5000/users/category/${props.id}`, data)
+ 
+   
+    axios.post(`http://localhost:5000/users/category/update/${id}`, data)
     .then((res) => {
+      navigate("/admindashboard")
+
+
     }).catch((error) => {
         console.log(error)
     });
@@ -21,7 +28,7 @@ const onSubmit=(data)=>{
 
   return (
     <><div className="container">
-    <h2>Horizontal form</h2>
+    <h2>Updatecategory</h2>
     <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)} >
       <div className="form-group">
         <label className="control-label col-sm-2" htmlFor="category">Category Name:</label>
@@ -42,5 +49,8 @@ const onSubmit=(data)=>{
   </>
   )
 }
+
+
+
 
 
