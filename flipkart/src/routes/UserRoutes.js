@@ -23,6 +23,9 @@ import Dashboard from '../admin/Admindashboard/Dashboard';
 import { Category } from '../admin/Admindashboard/component/category/Category';
 import { Addcategory } from '../admin/Admindashboard/component/category/Addcategory';
 import { Updatecategory } from '../admin/Admindashboard/component/category/Updatecategory';
+import {Product } from '../admin/Admindashboard/component/products/Product';
+import {Addproduct } from '../admin/Admindashboard/component/products/Addproduct';
+import {Updateproduct } from '../admin/Admindashboard/component/products/Updateproduct';
 
 export function UserRoutes() {
   
@@ -41,6 +44,12 @@ export function UserRoutes() {
              <Route path='/category' element={<Category/>}/>
              <Route path='/addcategory' element={<Addcategory/>}/>
              <Route path='/updatecategory/:id' element={<Updatecategory/>}/>
+
+             <Route path='/product' element={<Product/>}/>
+             <Route path='/addproduct' element={<Addproduct/>}/>
+             <Route path='/updateproduct/:id' element={<Updateproduct/>}/>
+
+            
 
              {/*  adminroutes end*/}
 
@@ -77,6 +86,9 @@ export function UserRoutes() {
       
     );
   }
+  
+
+  
   
 
   
