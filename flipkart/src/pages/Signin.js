@@ -1,15 +1,21 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 
 export const Signin = (props) => {
+  // const navigate=useNavigate()
   const {register,handleSubmit}=useForm();
   const onSubmit1=(data)=>{
     
     // console.log(data);
     axios.post('http://localhost:5000/users/login', data)
     .then((res) => {
-        console.log(res.data)
+      console.log(res)
+      localStorage.setItem('token',res.data.success)
+      alert("login successful")
+        
+        // navigate("/")
     }).catch((error) => {
         console.log(error)
     });
@@ -20,7 +26,10 @@ export const Signin = (props) => {
     console.log(data);
     axios.post('http://localhost:5000/users/add', data)
     .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
+        // navigate("/")
+        alert("signup successful")
+
     }).catch((error) => {
         console.log(error)
     });
