@@ -25,7 +25,7 @@ const onSubmit=(data)=>{
 
   return (
     <><div className="container">
-    <h2>Add new Category</h2>
+    <h2>Add new Product</h2>
     <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)} >
       <div className="form-group">
         <label className="control-label col-sm-2" htmlFor="product">Product Name:</label>
@@ -43,6 +43,12 @@ const onSubmit=(data)=>{
         <label className="control-label col-sm-2" htmlFor="price">Price:</label>
         <div className="col-sm-10">
           <input {...register("price",{required:true})} type="text" className="form-control" id="price" placeholder="Enter the price" name="price"/>
+        </div>
+      </div>
+      <div className="form-group">
+        <label className="control-label col-sm-2" htmlFor="price">Category:</label>
+        <div className="col-sm-10">
+          <input {...register("category",{required:true})} type="text" className="form-control" id="category" placeholder="Enter the price" name="category"/>
         </div>
       </div>
       <div className="form-group">
