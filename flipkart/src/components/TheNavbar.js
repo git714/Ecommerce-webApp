@@ -632,7 +632,7 @@ import {Link} from 'react-router-dom'
                                 <Link to="/checkout">Checkout</Link>
                                 </li>
                                 <li>
-                                <Link to="/category">Category</Link>
+                                <Link to="/">Category</Link>
                                 </li>
                                 <li>
                                 <Link to="/details">Detail</Link>
