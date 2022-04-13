@@ -12,9 +12,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+
 export const Category = () => {
   
   const [repo,setRepo]=useState([])
+  
 
   // subcategory demo array
 
@@ -76,7 +78,7 @@ const deleteCat=(id,e)=>{
         <TableBody>
           {repo.map((row) => (
             <TableRow
-              key={row.id}
+              key={row._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -93,7 +95,7 @@ const deleteCat=(id,e)=>{
              
               </TableCell>
               <TableCell component="th" scope="row">
-              <Link to='/updatecategory/${row.id}'><Button variant="contained">Edit</Button></Link>
+              <Link  to={`/updatecategory/${row._id}`}><Button variant="contained">Edit</Button></Link>
               </TableCell>
              
               {/* <TableCell align="right">{row.calories}</TableCell>
@@ -109,4 +111,5 @@ const deleteCat=(id,e)=>{
     </>
   )
 }
+
 
