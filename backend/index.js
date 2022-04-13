@@ -17,9 +17,12 @@ const path=require("path")
 app.use(express.static(path.resolve(__dirname,'./public')))
  const userRoute=require("./routes/userRoute")
  const categoryRoute=require('./routes/categoryRoute')
+ const productRoute=require('./routes/productRoute')
+
 app.use(cors());
 app.use("/users",userRoute)
 app.use("/users",categoryRoute)
+app.use("/users",productRoute)
 // require("./nodemailer/nodemailer")
 
 
