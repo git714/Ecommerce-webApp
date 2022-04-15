@@ -1,6 +1,7 @@
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import TheNavbar from "../components/TheNavbar";
 
 import{ TheFooter} from "../components/TheFooter";
@@ -27,7 +28,26 @@ import {Product } from '../admin/Admindashboard/component/products/Product';
 import {Addproduct } from '../admin/Admindashboard/component/products/Addproduct';
 import {Updateproduct } from '../admin/Admindashboard/component/products/Updateproduct';
 
+  
 export function UserRoutes() {
+  const [category,setCategory]=useState([])
+  const getRepo=()=>{ 
+    axios.get('http://localhost:5000/users/category/find')
+       .then((res) => {
+         console.log(res);
+         const categories=res.data;
+         setCategory(categories);
+         
+       })
+       .catch(function (error) {
+           console.log(error);
+       })
+      
+     }
+  useEffect(()=>{
+    getRepo();
+   
+  },[])
   
     return (
       
@@ -36,7 +56,7 @@ export function UserRoutes() {
        
           <Routes>
           
-             <Route path='/'  element={<Home header={<TheNavbar/>} footer={<TheFooter/>}/>} />
+             <Route path='/'  element={<Home header={<TheNavbar/>} footer={<TheFooter/>} category={category}/>} />
              {/*  admin*/}
              
              <Route path='/admin' element={<Adminsignin/>}/>
@@ -46,8 +66,8 @@ export function UserRoutes() {
              <Route path='/updatecategory/:id' element={<Updatecategory/>}/>
 
              <Route path='/product' element={<Product/>}/>
-             <Route path='/addproduct' element={<Addproduct/>}/>
-             <Route path='/updateproduct/:id' element={<Updateproduct/>}/>
+             <Route path='/addproduct' element={<Addproduct category={category}/>}/>
+             <Route path='/updateproduct/:id' element={<Updateproduct category={category}/>} />
 
             
 
@@ -86,9 +106,6 @@ export function UserRoutes() {
       
     );
   }
-  
-
-  
   
 
   
