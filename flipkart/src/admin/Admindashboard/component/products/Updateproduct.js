@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
 
-export const Updateproduct = () => {
-  
+export const Updateproduct = (props) => {
+  console.log(props)
   let {id}=useParams()
   const navigate=useNavigate()
   
@@ -25,7 +25,8 @@ const onSubmit=(data)=>{
     });
 
 }
-
+const categoryload=(props)=>{
+  if(props.category.length>0){
   return (
     <><div className="container">
     <h2>Update product</h2>
@@ -49,9 +50,20 @@ const onSubmit=(data)=>{
         </div>
       </div>
       <div className="form-group">
-        <label className="control-label col-sm-2" htmlFor="price">Category:</label>
+        <label className="control-label col-sm-2" htmlFor="category">Category:</label>
         <div className="col-sm-10">
-          <input {...register("category",{required:true})} type="text" className="form-control" id="category" placeholder="Enter the price" name="category"/>
+          {/* <input {...register("category",{required:true})} type="select" className="form-control" id="category" placeholder="Enter the price" name="category"/> */}
+          <select {...register("category",{required:true})}  name="category" id ="category">
+          {props.category.map((option)=>{return(<option key={option.id}value={option.name}>{option.name}</option>)})}
+            
+            {/* <option value={props.category[1].name}>{props.category[1].name}</option>
+            <option value={props.category[2].name}>{props.category[2].name}</option>
+            <option value={props.category[3].name}>{props.category[3].name}</option>
+            <option value={props.category[4].name}>{props.category[4].name}</option>
+            <option value={props.category[5].name}>{props.category[5].name}</option>
+            <option value={props.category[6].name}>{props.category[6].name}</option> */}
+            
+          </select>
         </div>
       </div>
       <div className="form-group">
@@ -64,6 +76,12 @@ const onSubmit=(data)=>{
         <label className="control-label col-sm-2" htmlFor="sold">Sold:</label>
         <div className="col-sm-10">
           <input {...register("sold",{required:true})} type="text" className="form-control" id="sold" placeholder="Enter the number of items sold" name="sold"/>
+        </div>
+      </div>
+      <div className="form-group">
+        <label className="control-label col-sm-2" htmlFor="image">Product image:</label>
+        <div className="col-sm-10">
+          <input {...register("file",{required:true})} type="file" className="form-control" id="image"  name="file"/>
         </div>
       </div>
       <div className="form-group">
@@ -83,6 +101,16 @@ const onSubmit=(data)=>{
   </div>
   </>
   )
+}else{
+  return(<h1>Waiting for category data</h1>)
+}
+
+}
+return(
+  <>
+    {categoryload(props)}
+  </>
+)
 }
 
 
