@@ -1,10 +1,25 @@
 const express=require("express");
+const multer=require('multer')
 const Product = require("../models/Product");
 const router=express.Router();
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./public/uploads")
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    },
+});
+
+var upload = multer({
+    storage: storage
+}).single('file')
 
 // for posting
-router.post('/product/create',(req,res)=>{
+router.post('/product/create',upload,(req,res)=>{
+   
+    console.log(req.body)
     const productObj={
         name: req.body.name,
         description: req.body.description,
@@ -12,7 +27,7 @@ router.post('/product/create',(req,res)=>{
         category: req.body.category,
         quantity:req.body.quantity ,
         sold: req.body.sold,
-        photo: req.body.photo,
+        file: req.file.filename,
         shipping: req.body.shipping
     }
     
