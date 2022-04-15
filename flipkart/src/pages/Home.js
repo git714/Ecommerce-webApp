@@ -1,5 +1,9 @@
-export const Home = (props) => (
+export const Home = (props) =>{
+  const categoryload=(props)=>{
+  if(props.category.length>0){
+  return(
   <>
+  
  {props.header}
     <div className="breadcrumb">
       <div className="container">
@@ -38,7 +42,7 @@ export const Home = (props) => (
                         className="icon fa fa-shopping-bag"
                         aria-hidden="true"
                       />
-                      Clothing
+                   {props.category[0].name}
                     </a>
                     <ul className="dropdown-menu mega-menu">
                       <li className="yamm-content">
@@ -175,7 +179,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-laptop" aria-hidden="true" />
-                      Electronics
+                      {props.category[1].name}
                     </a>
                     {/* ================================== MEGAMENU VERTICAL ================================== */}
                     <ul className="dropdown-menu mega-menu">
@@ -275,7 +279,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-paw" aria-hidden="true" />
-                      Shoes
+                      {props.category[2].name}
                     </a>
                     <ul className="dropdown-menu mega-menu">
                       <li className="yamm-content">
@@ -412,7 +416,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-clock-o" />
-                      Watches
+                      {props.category[3].name}
                     </a>
                     <ul className="dropdown-menu mega-menu">
                       <li className="yamm-content">
@@ -510,7 +514,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-diamond" />
-                      Jewellery
+                      {props.category[4].name}
                     </a>
                     <ul className="dropdown-menu mega-menu">
                       <li className="yamm-content">
@@ -647,7 +651,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-heartbeat" />
-                      Health and Beauty
+                      {props.category[5].name}
                     </a>
                     <ul className="dropdown-menu mega-menu">
                       <li className="yamm-content">
@@ -745,7 +749,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-paper-plane" />
-                      Kids and Babies
+                      {props.category[6].name}
                     </a>
                     {/* /.dropdown-menu */}{" "}
                   </li>
@@ -758,7 +762,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-futbol-o" />
-                      Sports
+                      {props.category[7].name}
                     </a>
                     {/* ================================== MEGAMENU VERTICAL ================================== */}
                     {/* /.dropdown-menu */}
@@ -773,7 +777,7 @@ export const Home = (props) => (
                       data-toggle="dropdown"
                     >
                       <i className="icon fa fa-envira" />
-                      Home and Garden
+                      {props.category[8].name}
                     </a>
                     {/* /.dropdown-menu */}{" "}
                   </li>
@@ -4982,5 +4986,18 @@ export const Home = (props) => (
     </div>
     {/* /.body-content */}
     {props.footer}
+    
   </>
-)
+  )
+}
+else{
+  return (<h1>Waiting for category</h1>)
+}
+
+  }
+  return(
+  <>
+  {categoryload(props)}
+  </>)
+
+}
