@@ -18,7 +18,7 @@ export const Contact = (props) => (
       {/* /.breadcrumb */}
       <div className="body-content">
         <div className="container">
-          <div className="contact-page">
+          <div className="contact-page" >
             <div className="row">
               <div className="col-md-12 contact-map outer-bottom-vs">
                 <iframe
