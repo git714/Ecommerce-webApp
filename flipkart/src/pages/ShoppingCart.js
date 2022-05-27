@@ -1,4 +1,37 @@
-export const ShoppingCart = (props) => (
+import { useSelector,useDispatch } from "react-redux"
+import { add,remove,decreaseCart } from "../redux/cartSlice";
+import { Link } from 'react-router-dom';
+
+export const ShoppingCart = (props) =>{
+  const dispatch=useDispatch();
+  // remove function
+  const handleRemove=(product)=>{
+    dispatch(remove(product))
+   
+ }
+// handle decrease function
+const handleDecrease=(product)=>{
+  dispatch((decreaseCart(product)))
+}
+// handle increase function
+const handleIncrease=(product)=>{
+  dispatch((add(product)))
+}
+//  getting products from store
+  const products=useSelector((state)=>
+     state.cart.cartItems);
+     
+// total cart price
+     const getTotal = () => {
+      return products.reduce((accum,currentValue) => {
+          return accum+currentValue.price*currentValue.cartQuantity;
+      }, 0);
+  };
+
+
+
+  return (
+
     <>
     {props.header}
       <div className="breadcrumb">
@@ -16,7 +49,7 @@ export const ShoppingCart = (props) => (
         {/* /.container */}
       </div>
       {/* /.breadcrumb */}
-      <div className="body-content outer-top-xs">
+      <div className="body-content outer-top-xs" >
         <div className="container">
           <div className="row ">
             <div className="shopping-cart">
@@ -28,10 +61,10 @@ export const ShoppingCart = (props) => (
                         <th className="cart-romove item">Remove</th>
                         <th className="cart-description item">Image</th>
                         <th className="cart-product-name item">Product Name</th>
-                        <th className="cart-edit item">Edit</th>
+                        {/* <th className="cart-edit item">Edit</th> */}
                         <th className="cart-qty item">Quantity</th>
-                        <th className="cart-sub-total item">Subtotal</th>
-                        <th className="cart-total last-item">Grandtotal</th>
+                        <th className="cart-sub-total item">Price</th>
+                        <th className="cart-total last-item">Total</th>
                       </tr>
                     </thead>
                     {/* /thead */}
@@ -40,18 +73,18 @@ export const ShoppingCart = (props) => (
                         <td colSpan={7}>
                           <div className="shopping-cart-btn">
                             <span className="">
-                              <a
-                                href="#"
+                              <Link to="/"
+                               
                                 className="btn btn-upper btn-primary outer-left-xs"
                               >
                                 Continue Shopping
-                              </a>
-                              <a
+                              </Link>
+                              {/* <a
                                 href="#"
                                 className="btn btn-upper btn-primary pull-right outer-right-xs"
                               >
                                 Update shopping cart
-                              </a>
+                              </a> */}
                             </span>
                           </div>
                           {/* /.shopping-cart-btn */}
@@ -59,20 +92,26 @@ export const ShoppingCart = (props) => (
                       </tr>
                     </tfoot>
                     <tbody>
-                      <tr>
+                    {products.map((product)=>{
+                      return(
+                        
+
+                   
+                      <tr key={product._id}>
+                      
                         <td className="romove-item">
-                          <a href="#" title="cancel" className="icon">
+                          <a onClick={()=>handleRemove(product)} title="cancel" className="icon">
                             <i className="fa fa-trash-o" />
                           </a>
                         </td>
                         <td className="cart-image">
-                          <a className="entry-thumbnail" href="detail.html">
-                            <img src="assets/images/products/p1.jpg" alt="" />
+                          <a className="entry-thumbnail" >
+                            <img src={`http://localhost:5000/uploads/${product.file}`} alt="" />
                           </a>
                         </td>
                         <td className="cart-product-name-info">
                           <h4 className="cart-product-description">
-                            <a href="detail.html">Floral Print Buttoned</a>
+                            <a href="detail.html">{product.name}</a>
                           </h4>
                           <div className="row">
                             <div className="col-sm-4">
@@ -84,101 +123,41 @@ export const ShoppingCart = (props) => (
                           </div>
                           {/* /.row */}
                           <div className="cart-product-info">
-                            <span className="product-color">
+                            {/* <span className="product-color">
                               COLOR:<span>Blue</span>
-                            </span>
+                            </span> */}
                           </div>
                         </td>
-                        <td className="cart-product-edit">
+                        {/* <td className="cart-product-edit">
                           <a href="#" className="product-edit">
                             Edit
                           </a>
-                        </td>
+                        </td> */}
                         <td className="cart-product-quantity">
                           <div className="quant-input">
                             <div className="arrows">
                               <div className="arrow plus gradient">
                                 <span className="ir">
-                                  <i className="icon fa fa-sort-asc" />
+                                  <i onClick={()=>handleIncrease(product)} className="icon fa fa-sort-asc" />
                                 </span>
                               </div>
                               <div className="arrow minus gradient">
                                 <span className="ir">
-                                  <i className="icon fa fa-sort-desc" />
+                                  <i onClick={()=>handleDecrease(product)} className="icon fa fa-sort-desc" />
                                 </span>
                               </div>
                             </div>
-                            <input type="text" defaultValue={1} />
+                            <input type="text" value={product.cartQuantity} />
                           </div>
                         </td>
                         <td className="cart-product-sub-total">
-                          <span className="cart-sub-total-price">$300.00</span>
+                          <span className="cart-sub-total-price">{product.price}</span>
                         </td>
                         <td className="cart-product-grand-total">
-                          <span className="cart-grand-total-price">$300.00</span>
+                          <span className="cart-grand-total-price">{product.price*product.cartQuantity}</span>
                         </td>
-                      </tr>
-                      <tr>
-                        <td className="romove-item">
-                          <a href="#" title="cancel" className="icon">
-                            <i className="fa fa-trash-o" />
-                          </a>
-                        </td>
-                        <td className="cart-image">
-                          <a className="entry-thumbnail" href="detail.html">
-                            <img src="assets/images/products/p2.jpg" alt="" />
-                          </a>
-                        </td>
-                        <td className="cart-product-name-info">
-                          <h4 className="cart-product-description">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h4>
-                          <div className="row">
-                            <div className="col-sm-4">
-                              <div className="rating rateit-small" />
-                            </div>
-                            <div className="col-sm-8">
-                              <div className="reviews">(06 Reviews)</div>
-                            </div>
-                          </div>
-                          {/* /.row */}
-                          <div className="cart-product-info">
-                            <span className="product-color">
-                              COLOR:<span>Pink</span>
-                            </span>
-                          </div>
-                        </td>
-                        <td className="cart-product-edit">
-                          <a href="#" className="product-edit">
-                            Edit
-                          </a>
-                        </td>
-                        <td className="cart-product-quantity">
-                          <div className="cart-quantity">
-                            <div className="quant-input">
-                              <div className="arrows">
-                                <div className="arrow plus gradient">
-                                  <span className="ir">
-                                    <i className="icon fa fa-sort-asc" />
-                                  </span>
-                                </div>
-                                <div className="arrow minus gradient">
-                                  <span className="ir">
-                                    <i className="icon fa fa-sort-desc" />
-                                  </span>
-                                </div>
-                              </div>
-                              <input type="text" defaultValue={1} />
-                            </div>
-                          </div>
-                        </td>
-                        <td className="cart-product-sub-total">
-                          <span className="cart-sub-total-price">$300.00</span>
-                        </td>
-                        <td className="cart-product-grand-total">
-                          <span className="cart-grand-total-price">$300.00</span>
-                        </td>
-                      </tr>
+                      </tr>)
+                    })}
                     </tbody>
                     {/* /tbody */}
                   </table>
@@ -293,12 +272,12 @@ export const ShoppingCart = (props) => (
                   <thead>
                     <tr>
                       <th>
-                        <div className="cart-sub-total">
+                        {/* <div className="cart-sub-total">
                           Subtotal<span className="inner-left-md">$600.00</span>
-                        </div>
+                        </div> */}
                         <div className="cart-grand-total">
                           Grand Total
-                          <span className="inner-left-md">$600.00</span>
+                          <span className="inner-left-md">{getTotal()} R.s</span>
                         </div>
                       </th>
                     </tr>
@@ -451,4 +430,5 @@ export const ShoppingCart = (props) => (
       {props.footer}
     </>
   )
+}
   
