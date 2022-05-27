@@ -21,8 +21,8 @@ export const Blog = (props) => (
           <div className="row">
             <div className="blog-page">
               <div className="col-md-9">
-                <div className="blog-post wow fadeInUp">
-                  <img
+                <div className="blog-post wow fadeInUp" style={{visibility:"visible"}}>
+                  <img  style={{visibility:"visible"}}
                     className="img-responsive"
                     src="assets/images/blog-post/blog_big_01.jpg"
                     alt=""
@@ -359,7 +359,7 @@ export const Blog = (props) => (
                 </div>
               </div>
               <div className="col-md-3 sidebar">
-                <div className="sidebar-module-container">
+                <div className="sidebar-module-container" >
                   <div className="search-area outer-bottom-small">
                     <form>
                       <div className="control-group">
