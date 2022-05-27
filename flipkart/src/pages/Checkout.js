@@ -327,7 +327,7 @@ export const Checkout = (props) => (
                 {/* checkout-progress-sidebar */}
                 <div className="checkout-progress-sidebar ">
                   <div className="panel-group">
-                    <div className="panel panel-default">
+                    <div className="panel panel-default" >
                       <div className="panel-heading">
                         <h4 className="unicase-checkout-title">
                           Your Checkout Progress
