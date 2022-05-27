@@ -18,7 +18,7 @@ export const Mywishlist= (props) => (
       {/* /.breadcrumb */}
       <div className="body-content">
         <div className="container">
-          <div className="my-wishlist-page">
+          <div className="my-wishlist-page" >
             <div className="row">
               <div className="col-md-12 my-wishlist">
                 <div className="table-responsive">
