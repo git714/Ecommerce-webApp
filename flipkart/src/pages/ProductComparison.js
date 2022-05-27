@@ -2,7 +2,7 @@ export const ProductComparison = (props) => (
   <>
   {props.header}
     <div className="breadcrumb">
-      <div className="container">
+      <div className="container" >
         <div className="breadcrumb-inner">
           <ul className="list-inline list-unstyled">
             <li>
