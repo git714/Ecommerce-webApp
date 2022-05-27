@@ -1,5 +1,48 @@
-export const Details = (props) => (
+import React,{useState,useEffect} from "react"
+import { useParams} from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { add } from "../redux/cartSlice";
+import Spinner from './../components/Spinner';
+
+
+export const Details = (props) => {
+  const [product,setProduct]=useState()
+  const {id}=useParams();
+  const dispatch=useDispatch();
+
+const getProductByID=()=>{
+ 
+  axios.get(`http://localhost:5000/users/product/${id}`).then((res) => {
+    console.log(res);
+    const product=res.data;
+    setProduct(product);
+    
+  })
+  .catch(function (error) {
+      console.log(error);
+  })
+
+};
+
+useEffect(()=>{
+  getProductByID()
+},[]);
+
+const handleAdd=(product)=>{
+  dispatch(add(product));
+  console.log(product)
+}
+
+
+
+const productData=()=>{
+  if(product)
+{
+  return(
+   
     <>
+    
     {props.header}
       <div className="breadcrumb">
         <div className="container">
@@ -9,9 +52,9 @@ export const Details = (props) => (
                 <a href="#">Home</a>
               </li>
               <li>
-                <a href="#">Clothing</a>
+                <a href="#">{product.category}</a>
               </li>
-              <li className="active">Floral Print Buttoned</li>
+              <li className="active">{product.name}</li>
             </ul>
           </div>
           {/* /.breadcrumb-inner */}
@@ -19,13 +62,13 @@ export const Details = (props) => (
         {/* /.container */}
       </div>
       {/* /.breadcrumb */}
-      <div className="body-content outer-top-xs">
+      <div className="body-content outer-top-xs" >
         <div className="container">
           <div className="row single-product">
             <div className="col-md-3 sidebar">
               <div className="sidebar-module-container">
                 <div className="home-banner outer-top-n">
-                  <img src="assets/images/banners/LHS-banner.jpg" alt="Image" />
+                  <img src="/assets/images/banners/LHS-banner.jpg" alt="Image" />
                 </div>
                 {/* ============================================== HOT DEALS ============================================== */}
                 <div className="sidebar-widget hot-deals wow fadeInUp outer-top-vs">
@@ -35,7 +78,7 @@ export const Details = (props) => (
                       <div className="products">
                         <div className="hot-deal-wrapper">
                           <div className="image">
-                            <img src="assets/images/hot-deals/p5.jpg" alt="" />
+                            <img src="/assets/images/hot-deals/p5.jpg" alt="" />
                           </div>
                           <div className="sale-offer-tag">
                             <span>
@@ -111,7 +154,7 @@ export const Details = (props) => (
                       <div className="products">
                         <div className="hot-deal-wrapper">
                           <div className="image">
-                            <img src="assets/images/products/p6.jpg" alt="" />
+                            <img src="/assets/images/products/p6.jpg" alt="" />
                           </div>
                           <div className="sale-offer-tag">
                             <span>
@@ -173,6 +216,7 @@ export const Details = (props) => (
                               <button
                                 className="btn btn-primary cart-btn"
                                 type="button"
+                               
                               >
                                 Add to cart
                               </button>
@@ -187,7 +231,7 @@ export const Details = (props) => (
                       <div className="products">
                         <div className="hot-deal-wrapper">
                           <div className="image">
-                            <img src="assets/images/products/p7.jpg" alt="" />
+                            <img src="/assets/images/products/p7.jpg" alt="" />
                           </div>
                           <div className="sale-offer-tag">
                             <span>
@@ -293,7 +337,7 @@ export const Details = (props) => (
                     <div className="item">
                       <div className="avatar">
                         <img
-                          src="assets/images/testimonials/member1.png"
+                          src="/assets/images/testimonials/member1.png"
                           alt="Image"
                         />
                       </div>
@@ -311,7 +355,7 @@ export const Details = (props) => (
                     <div className="item">
                       <div className="avatar">
                         <img
-                          src="assets/images/testimonials/member3.png"
+                          src="/assets/images/testimonials/member3.png"
                           alt="Image"
                         />
                       </div>
@@ -328,7 +372,7 @@ export const Details = (props) => (
                     <div className="item">
                       <div className="avatar">
                         <img
-                          src="assets/images/testimonials/member2.png"
+                          src="/assets/images/testimonials/member2.png"
                           alt="Image"
                         />
                       </div>
@@ -360,288 +404,19 @@ export const Details = (props) => (
                           <a
                             data-lightbox="image-1"
                             data-title="Gallery"
-                            href="assets/images/products/p8.jpg"
+                            href={`http://localhost:5000/uploads/${product.file}`}
                           >
                             <img
                               className="img-responsive"
                               alt=""
-                              src="assets/images/products/p8.jpg"
-                              data-echo="assets/images/products/p8.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide2">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p9.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/products/p9.jpg"
-                              data-echo="assets/images/products/p9.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide3">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p10.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/products/p10.jpg"
-                              data-echo="assets/images/products/p10.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide4">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p11.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/products/p11.jpg"
-                              data-echo="assets/images/products/p11.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide5">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p12.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/products/p12.jpg"
-                              data-echo="assets/images/products/p12.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide6">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p13.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/blank.gif"
-                              data-echo="assets/images/products/p13.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide7">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p14.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/blank.gif"
-                              data-echo="assets/images/products/p14.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide8">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p15.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/blank.gif"
-                              data-echo="assets/images/products/p15.jpg"
-                            />
-                          </a>
-                        </div>
-                        {/* /.single-product-gallery-item */}
-                        <div className="single-product-gallery-item" id="slide9">
-                          <a
-                            data-lightbox="image-1"
-                            data-title="Gallery"
-                            href="assets/images/products/p16.jpg"
-                          >
-                            <img
-                              className="img-responsive"
-                              alt=""
-                              src="assets/images/blank.gif"
-                              data-echo="assets/images/products/p16.jpg"
+                              src={`http://localhost:5000/uploads/${product.file}`}
+                              data-echo={`http://localhost:5000/uploads/${product.file}`}
                             />
                           </a>
                         </div>
                         {/* /.single-product-gallery-item */}
                       </div>
-                      {/* /.single-product-slider */}
-                      <div className="single-product-gallery-thumbs gallery-thumbs">
-                        <div id="owl-single-product-thumbnails">
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb active"
-                              data-target="#owl-single-product"
-                              data-slide={1}
-                              href="#slide1"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p17.jpg"
-                                data-echo="assets/images/products/p17.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={2}
-                              href="#slide2"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p18.jpg"
-                                data-echo="assets/images/products/p18.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={3}
-                              href="#slide3"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p19.jpg"
-                                data-echo="assets/images/products/p19.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={4}
-                              href="#slide4"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p20.jpg"
-                                data-echo="assets/images/products/p20.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={5}
-                              href="#slide5"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p21.jpg"
-                                data-echo="assets/images/products/p21.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={6}
-                              href="#slide6"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p22.jpg"
-                                data-echo="assets/images/products/p22.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={7}
-                              href="#slide7"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p23.jpg"
-                                data-echo="assets/images/products/p23.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={8}
-                              href="#slide8"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p24.jpg"
-                                data-echo="assets/images/products/p24.jpg"
-                              />
-                            </a>
-                          </div>
-                          <div className="item">
-                            <a
-                              className="horizontal-thumb"
-                              data-target="#owl-single-product"
-                              data-slide={9}
-                              href="#slide9"
-                            >
-                              <img
-                                className="img-responsive"
-                                width={85}
-                                alt=""
-                                src="assets/images/products/p25.jpg"
-                                data-echo="assets/images/products/p25.jpg"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                        {/* /#owl-single-product-thumbnails */}
-                      </div>
+                    
                       {/* /.gallery-thumbs */}
                     </div>
                     {/* /.single-product-gallery */}
@@ -649,7 +424,7 @@ export const Details = (props) => (
                   {/* /.gallery-holder */}
                   <div className="col-sm-6 col-md-7 product-info-block">
                     <div className="product-info">
-                      <h1 className="name">Floral Print Buttoned</h1>
+                      <h1 className="name">{product.name}</h1>
                       <div className="rating-reviews m-t-20">
                         <div className="row">
                           <div className="col-sm-3">
@@ -683,18 +458,15 @@ export const Details = (props) => (
                       </div>
                       {/* /.stock-container */}
                       <div className="description-container m-t-20">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        {product.description}
                       </div>
                       {/* /.description-container */}
                       <div className="price-container info-container m-t-20">
                         <div className="row">
                           <div className="col-sm-6">
                             <div className="price-box">
-                              <span className="price">$800.00</span>
-                              <span className="price-strike">$900.00</span>
+                              <span className="price">{product.price}rs</span>
+                              <span className="price-strike">{product.price+500}rs</span>
                             </div>
                           </div>
                           <div className="col-sm-6">
@@ -734,10 +506,10 @@ export const Details = (props) => (
                       {/* /.price-container */}
                       <div className="quantity-container info-container">
                         <div className="row">
-                          <div className="col-sm-2">
+                          {/* <div className="col-sm-2">
                             <span className="label">Qty :</span>
-                          </div>
-                          <div className="col-sm-2">
+                          </div> */}
+                          {/* <div className="col-sm-2">
                             <div className="cart-quantity">
                               <div className="quant-input">
                                 <div className="arrows">
@@ -755,9 +527,9 @@ export const Details = (props) => (
                                 <input type="text" defaultValue={1} />
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-sm-7">
-                            <a href="#" className="btn btn-primary">
+                            <a  className="btn btn-primary"  onClick={()=>{handleAdd(product)}}>
                               <i className="fa fa-shopping-cart inner-right-vs" />{" "}
                               ADD TO CART
                             </a>
@@ -1114,472 +886,7 @@ export const Details = (props) => (
               </div>
               {/* /.product-tabs */}
               {/* ============================================== UPSELL PRODUCTS ============================================== */}
-              <section className="section featured-product wow fadeInUp">
-                <h3 className="section-title">upsell products</h3>
-                <div className="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img src="assets/images/products/p1.jpg" alt="" />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag sale">
-                            <span>sale</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img src="assets/images/products/p2.jpg" alt="" />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag sale">
-                            <span>sale</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img src="assets/images/products/p3.jpg" alt="" />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag hot">
-                            <span>hot</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img src="assets/images/products/p4.jpg" alt="" />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag new">
-                            <span>new</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img
-                                src="assets/images/blank.gif"
-                                data-echo="assets/images/products/p5.jpg"
-                                alt=""
-                              />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag hot">
-                            <span>hot</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                  <div className="item item-carousel">
-                    <div className="products">
-                      <div className="product">
-                        <div className="product-image">
-                          <div className="image">
-                            <a href="detail.html">
-                              <img
-                                src="assets/images/blank.gif"
-                                data-echo="assets/images/products/p6.jpg"
-                                alt=""
-                              />
-                            </a>
-                          </div>
-                          {/* /.image */}
-                          <div className="tag new">
-                            <span>new</span>
-                          </div>
-                        </div>
-                        {/* /.product-image */}
-                        <div className="product-info text-left">
-                          <h3 className="name">
-                            <a href="detail.html">Floral Print Buttoned</a>
-                          </h3>
-                          <div className="rating rateit-small" />
-                          <div className="description" />
-                          <div className="product-price">
-                            <span className="price">$650.99 </span>
-                            <span className="price-before-discount">$ 800</span>
-                          </div>
-                          {/* /.product-price */}
-                        </div>
-                        {/* /.product-info */}
-                        <div className="cart clearfix animate-effect">
-                          <div className="action">
-                            <ul className="list-unstyled">
-                              <li className="add-cart-button btn-group">
-                                <button
-                                  className="btn btn-primary icon"
-                                  data-toggle="dropdown"
-                                  type="button"
-                                >
-                                  <i className="fa fa-shopping-cart" />
-                                </button>
-                                <button
-                                  className="btn btn-primary cart-btn"
-                                  type="button"
-                                >
-                                  Add to cart
-                                </button>
-                              </li>
-                              <li className="lnk wishlist">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Wishlist"
-                                >
-                                  <i className="icon fa fa-heart" />
-                                </a>
-                              </li>
-                              <li className="lnk">
-                                <a
-                                  className="add-to-cart"
-                                  href="detail.html"
-                                  title="Compare"
-                                >
-                                  <i className="fa fa-signal" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* /.action */}
-                        </div>
-                        {/* /.cart */}
-                      </div>
-                      {/* /.product */}
-                    </div>
-                    {/* /.products */}
-                  </div>
-                  {/* /.item */}
-                </div>
-                {/* /.home-owl-carousel */}
-              </section>
-              {/* /.section */}
-              {/* ============================================== UPSELL PRODUCTS : END ============================================== */}
+             
             </div>
             {/* /.col */}
             <div className="clearfix" />
@@ -1595,8 +902,8 @@ export const Details = (props) => (
                 <div className="item m-t-15">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand1.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand1.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1605,8 +912,8 @@ export const Details = (props) => (
                 <div className="item m-t-10">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand2.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand2.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1615,8 +922,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand3.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand3.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1625,8 +932,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand4.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand4.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1635,8 +942,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand5.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand5.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1645,8 +952,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand6.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand6.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1655,8 +962,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand2.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand2.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1665,8 +972,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand4.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand4.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1675,8 +982,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand1.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand1.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1685,8 +992,8 @@ export const Details = (props) => (
                 <div className="item">
                   <a href="#" className="image">
                     <img
-                      data-echo="assets/images/brands/brand5.png"
-                      src="assets/images/blank.gif"
+                      data-echo="/assets/images/brands/brand5.png"
+                      src="/assets/images/blank.gif"
                       alt=""
                     />
                   </a>
@@ -1705,5 +1012,14 @@ export const Details = (props) => (
       {/* /.body-content */}
       {props.footer}
     </>
-  )
-  
+  )}
+else{
+  return(<Spinner/>)
+}
+}
+return(
+  <>
+    {productData()}
+  </>
+)
+}
