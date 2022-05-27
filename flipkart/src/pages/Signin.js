@@ -60,7 +60,7 @@ export const Signin = (props) => {
       {/* /.breadcrumb */}
       <div className="body-content">
         <div className="container">
-          <div className="sign-in-page">
+          <div className="sign-in-page" >
             <div className="row">
               {/* Sign-in */}
               <div className="col-md-6 col-sm-6 sign-in">
